@@ -165,11 +165,28 @@ process.on('unhandledRejection', (reason, promise) => {
 
 // 健康检查端点
 setInterval(() => {
-  http.get(`http://localhost:${PORT}/`, (res) => {
+  const options = {
+    hostname: 'localhost',
+    port: PORT,
+    path: '/',
+    method: 'GET',
+    timeout: 5000
+  };
+  
+  const req = http.request(options, (res) => {
     if (res.statusCode !== 200) {
       console.error(`健康检查失败: ${res.statusCode}`);
     }
-  }).on('error', (err) => {
+  });
+  
+  req.on('error', (err) => {
     console.error('健康检查错误:', err.message);
   });
-}, 30000); // 每30秒检查一次
+  
+  req.on('timeout', () => {
+    req.destroy();
+    console.error('健康检查超时');
+  });
+  
+  req.end();
+}, 30000);

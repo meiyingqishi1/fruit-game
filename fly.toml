@@ -1,0 +1,52 @@
+# Fly.io 配置文件
+app = "fruit-dragon-game"  # 应用名称，部署时修改
+primary_region = "hkg"     # 主区域：香港（推荐中国用户）
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+
+[experimental]
+  auto_rollback = true
+  enable_consul = true
+
+[build]
+  # 不需要特殊构建
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  
+  [[http_service.checks]]
+    interval = 10000
+    timeout = 2000
+    grace_period = "5s"
+    method = "get"
+    path = "/"
+    protocol = "http"
+    
+  [[http_service.checks]]
+    interval = 15000
+    timeout = 3000
+    grace_period = "10s"
+    method = "get"
+    path = "/"
+    protocol = "http"
+    initial_status = 200
+
+[mounts]
+  source = "game_data"
+  destination = "/data"
+
+[deploy]
+  strategy = "rolling"
+  max_unavailable = 0
+  wait_time = 30

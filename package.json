@@ -1,0 +1,32 @@
+{
+  "name": "fruit-dragon-game",
+  "version": "2.0.0",
+  "description": "H5水果接龙小游戏 - 专为Fly.io部署优化",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"无需测试\" && exit 0",
+    "lint": "echo \"无需检查\" && exit 0"
+  },
+  "keywords": [
+    "game",
+    "h5",
+    "wechat",
+    "fly.io",
+    "html5"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourname/fruit-game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourname/fruit-game/issues"
+  },
+  "homepage": "https://your-game.fly.dev"
+}
